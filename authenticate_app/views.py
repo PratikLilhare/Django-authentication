@@ -2,8 +2,18 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
 from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 def loginPage(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        pwd = request.POST['password']
+        user = authenticate(username=username, password = pwd)
+        if user is not None:
+            login(request,user)
+            return redirect('welcome')
+        else:
+            redirect('register')
     return render(request,"login.html")
 
 def register(request):
@@ -19,3 +29,7 @@ def register(request):
             messages.error(request,"there was an error")
             
     return render(request,"signup.html",{'form':form})
+
+def home(request):
+    user= request.user
+    return render(request,'welcome.html',{'user':user})
