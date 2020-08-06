@@ -13,7 +13,8 @@ def loginPage(request):
             login(request,user)
             return redirect('welcome')
         else:
-            redirect('register')
+            messages.error(request,"Username or password is not correct")
+            redirect('login')
     return render(request,"login.html")
 
 def register(request):
@@ -23,13 +24,17 @@ def register(request):
         
         if form.is_valid():
             form.save()
-            messages.success(request,"user created successfully")
+            messages.success(request,"User created successfully")
             return redirect('login')
         else:
-            messages.error(request,"there was an error")
+            messages.error(request,"There was an error")
             
     return render(request,"signup.html",{'form':form})
 
 def home(request):
     user= request.user
     return render(request,'welcome.html',{'user':user})
+
+def logoutPage(request):
+    logout(request)
+    return redirect ("login")

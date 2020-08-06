@@ -69,10 +69,44 @@
 			outline: 0px !important;
 		}
 
+		/* [[[[[[[[[[[[[[[[ Flash message style ]]]]]]]]]]]]]]]]]]]] */
+		.alert {
+			padding: 20px;
+			background-color: #e02209;
+			color: white;
+		}
+		.alert.success {background-color: #4CAF50;}
+		.alert.info {background-color: #2196F3;}
+		.alert.warning {background-color: #ff9800;}
+
+		.closebtn {
+			margin-left: 15px;
+			color: white;
+			font-weight: bold;
+			float: right;
+			font-size: 22px;
+			line-height: 20px;
+			cursor: pointer;
+			transition: 0.3s;
+		}
+	
+		.closebtn:hover {
+			color: black;
+		}
+		  /* [[[[[[[[[[[[[[[[ End Flash message style ]]]]]]]]]]]]]]]]]]]] */
 	</style>
 
 </head>
 <body>
+	{% for message in messages %}
+	<div class="alert {{ message.tags }}">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		
+		<p>{{ message }}</p>
+		
+	</div>
+	{% endfor %}
+
 	<div class="container h-100">
 		<div class="d-flex justify-content-center h-100">
 			<div class="user_card">
@@ -103,7 +137,8 @@
 					</form>
 
 				</div>
-		
+				
+				
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
