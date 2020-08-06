@@ -9,6 +9,8 @@ setup before running the project:
 - python manage.py migrate
 
 general info:
+- python version: 3.7.5
+- django version: 2.1.7
 - host: localhost
 - server port: 3306
 - signup url: http://127.0.0.1:8000/account/register/
